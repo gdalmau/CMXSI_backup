@@ -1,5 +1,5 @@
 <h1>Fitxers disponibles</h1>
-    {{#each arbre.children}}
-        <p><a href="/git/{{path}}" {{size}}>{{name}}</a></p>
+	{{#each arbre}}
+        <p><a href="/{{this}}">{{this}} - {{size}} B</a></p>
     {{/each}}
 </div>

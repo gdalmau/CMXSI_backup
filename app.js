@@ -18,7 +18,6 @@ app.use('/bower_components', express.static(path.join(__dirname, '/bower_compone
 //  Rutas
 
 app.use('/', require('./routes/index'))
-app.use('/git', require('./routes/git'))
 
 //  LISTEN
 
