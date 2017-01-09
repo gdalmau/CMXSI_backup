@@ -1,0 +1,33 @@
+.thubnail_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+}
+
+.recovery_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.original_container {
+    height: 120px;
+    display: flex;
+    border-color: green;
+    border-style: solid;
+    border-width: 3px,
+}
+
+.file_container {
+    height: 120px;
+    display: flex;
+    border-color: blue;
+    border-style: dotted;
+    border-width: 3px;
+}
+
+.file_container:hover{
+    background-color: deepskyblue;
+    cursor: pointer;
+}

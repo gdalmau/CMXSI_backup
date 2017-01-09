@@ -1,0 +1,27 @@
+{
+  "name": "expressmvc",
+  "version": "1.0.0",
+  "description": "Simple express APP",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "directory-tree": "^1.1.1",
+    "express": "^4.14.0",
+    "hbs": "^4.0.1",
+    "mongodb": "^2.2.12",
+    "mongoose": "^4.7.1",
+    "nodemon": "^1.11.0",
+    "shelljs": "^0.7.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oriol Testart <orioltestart@gmail.com> (https://orioltestart.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orioltestart/Web.git"
+  }
+}
