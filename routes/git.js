@@ -1,3 +1,5 @@
+'use strict'
+
 const express = require('express')
 const shell = require('shelljs')
 shell.config.silent = true
