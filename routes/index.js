@@ -46,21 +46,36 @@ function processaURL (req, res, next) {
   
   
   if (fs.lstatSync(full_path).isDirectory()) {
-    let command = shell.exec('ls ' + full_path).stdout.split('\n').slice(0, -1)
-    console.log('### command: ' + command)
-    res.locals.fitxers = command
+    let command_ls = shell.exec('ls ' + full_path).stdout.split('\n').slice(0, -1)
+    console.log('### command: ' + command_ls)
+    res.locals.fitxers = command_ls
     res.locals.isDirectory = true
 	res.locals.route = req.url
+	
+	let command_cd = shell.cd(nom_web)
+	let command_log = 'git log --pretty=format:"%h%x09%an%x09%ad%x09%s"'
+	let historial = shell.exec(command_log)
+	let commits = historial.split('\n').map(dividirCommits)
+	res.locals.commits = commits
   } else {
     // let command = shell.exec('git status')
     // let command = shell.exec('git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --follow ' + full_path)
 	// let command = shell.exec('git log' + full_path)
+	
 	let command_cd = shell.cd(nom_web)
-	let command = 'git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --follow ' + full_path
-	let historial = shell.exec(command)
-	console.log("Command historial: "+command_cd + '\n'+command)
-	console.log("Command historial total: "+historial)
-    res.locals.commits = historial.split('\n').map(dividirCommits)
+	let command_log = 'git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --follow ' + full_path
+	let historial = shell.exec(command_log)
+	let commits = historial.split('\n').map(dividirCommits)
+	//command = 'git diff --no-commit-id -r '+ commits[2]['commit']
+	//console.log("\n\n"+command)
+	//let command_diff = shell.exec(command)
+	//console.log("\n\nCommand DIFF: " + command_diff)
+	
+	
+	
+	//console.log("Command historial: "+command_cd + '\n'+command)
+	//console.log("Command historial total: "+historial)
+    res.locals.commits = commits
     res.locals.route = req.url
     res.locals.isDirectory = false
   }
@@ -74,7 +89,8 @@ router.get('/webs/:path*?', processaURL, function (req, res) {
 	
     res.render('vista_web', {
       fitxers: res.locals.fitxers,
-      pare: res.locals.route
+      pare: res.locals.route,
+	  commits: res.locals.commits
     })
   } else {
     console.log('### mostrar fitxer: ' + res.locals.path)
@@ -84,14 +100,6 @@ router.get('/webs/:path*?', processaURL, function (req, res) {
 	  commits: res.locals.commits
     })
   }
-  // res.render('vista_fitxer', {
-    // title: 'GIT!',
-    // history: res.locals.git,
-    // nom: 'app.js',
-    // arbre: res.locals.tree,
-    // path: res.locals.pwd,
-    // file: res.locals.file
-  // })
 })
 
 // HOME

@@ -23,4 +23,10 @@ jQuery(document).ready(function ($) {
       ($(this).offset().top <= $(window).scrollTop() + $(window).height() * offset && $(this).find('.cd-timeline-img').hasClass('is-hidden')) && $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in')
     })
   }
+  
+  $(".recuperar").on('click', function(e){
+	e.preventDefault()
+	let commit = e.currentTarget.id
+	
+  })
 })
