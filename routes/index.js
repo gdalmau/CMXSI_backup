@@ -38,17 +38,21 @@ router.get('/404', function (req, res) {
 
 router.param('path', function (req, res, next, path) {
   //Controlem que tingui el programari correctament instalat
+	if(path.match("favicon")){
+		return
+	}
 	check(path, req, res)
 	
 	let full_path = GLOBAL_PATH + path
-	console.log("fullpath " + full_path)
+	console.log("### fullpath param1: " + full_path)
 	
 	
 	if(fs.lstatSync(full_path).isDirectory()){
 		let command = shell.exec('ls '+ full_path).stdout.split('\n').slice(0,-1)
-		console.log(command)
+		console.log("### command: "+command)
 		res.locals.fitxers = command
-		res.locals.pare = path
+		res.locals.path = path
+		res.locals.isDirectory = true
 		// res.render('vista_web',{
 			// fitxers: command,
 			// pare: path
@@ -56,11 +60,12 @@ router.param('path', function (req, res, next, path) {
 	}
 	else{
 		let command = shell.exec('git status')
-		let path2 = shell.exec('git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --follow ' + aux)
+		let path2 = shell.exec('git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --follow ' + path)
 		
 		res.locals.pwd = path2.split('\n').map(dividirCommits)
 		res.locals.path = path
-		res.locals.fitxers = command
+		res.locals.historial_fitxer = command
+		res.locals.isDirectory = false
 		
 		// res.render('vista_fitxer',{
 			// fitxers: command,
@@ -86,21 +91,23 @@ router.param('path', function (req, res, next, path) {
 
 //  ROUTES
 router.get('/:path', function (req, res) {
+	if(res.locals.path.match("favicon")){
+		return
+	}
 	
-	
-	let full_path = GLOBAL_PATH + path
-	console.log("fullpath " + full_path)
-	
-	
-	if(fs.lstatSync(full_path).isDirectory()){
+	// if(fs.lstatSync(full_path).isDirectory()){
+	console.log("### router.get parametres: "+req.params)
+	if(res.locals.isDirectory){
+		console.log("### mostrar fitxers web: "+res.locals.path)
 		res.render('vista_web',{
-			fitxers: command,
-			pare: path
+			fitxers: res.locals.fitxers,
+			pare: res.locals.path
 		})
 	}
 	else{
+		console.log("### mostrar fitxer: "+res.locals.path)
 		res.render('vista_fitxer',{
-			fitxers: command,
+			historial_fitxer: res.locals.historial_fitxer,
 			title: 'GIT!',
 			path: res.locals.pwd,
 			file: res.locals.path
@@ -120,14 +127,14 @@ router.get('/:path', function (req, res) {
 // HOME
 router.get('/', function (req, res, next){
 	let list_webs = shell.exec('ls /var/www').split("\n").slice(0,-1)
-	console.log(list_webs)
-	res.locals.sth = list_webs
+	console.log("### llistat de webs: " + list_webs)
+	res.locals.list_webs = list_webs
 	next()
 })
 
 router.get('/', function (req, res) {
   res.render('index', {
-    arbre: res.locals.sth
+    arbre: res.locals.list_webs
   })
 })
 
