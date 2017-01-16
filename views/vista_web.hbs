@@ -1,0 +1,33 @@
+<h1>Fitxers disponibles</h1>
+	{{#each fitxers}}
+        <p><a href="{{../pare}}/{{this}}">{{this}} - {{size}} B</a></p>
+    {{/each}}
+</div>
+
+<button>Backup</button>
+
+<header>
+	<div class="cd-nugget-info">
+		Title
+	</div>
+	<h1>Versions de la web {{pare}}</h1>
+</header>
+
+<section id="cd-timeline" class="cd-container">
+	{{#each commits}}
+	<div class="cd-timeline-block">
+		<div class="cd-timeline-img" style="background: lightcoral">
+			<img src="/img/cd-icon-picture.svg" alt="Picture">
+		</div> <!-- cd-timeline-img -->
+		
+		<div class="cd-timeline-content">
+			<h2>{{commit}} - {{author}}</h2>
+			<p>{{message}}</p>
+			<a id="{{commit}}" href="#0" class="recuperar cd-read-more">Recuperar</a>
+			<a href="#0" class="cd-read-more">DIFF</a>
+			<span class="cd-date">{{date}}</span>
+		</div> <!-- cd-timeline-content -->
+	</div> <!-- cd-timeline-block -->
+	{{/each}}
+</section>
+
