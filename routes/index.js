@@ -103,24 +103,57 @@ router.get('/webs/:path*?', processaURL, function (req, res) {
   }
 })
 
-router.post('/recuperar', function(req, res) {
+router.post('/show_diff', function(req, res) {
+	let full_path = req.body.path
+	let commit_id = req.body.commit_id
+	let nom_web = check(full_path, req, res)
+	let command_cd = shell.cd(nom_web)
+	let command_git_diff = shell.exec('git diff --no-commit-id '+commit_id)
+	res.send({
+		result: command_git_diff,
+		missatge: 'Mostrats canvis del commit '+commit_id+' de la web '+nom_web+' fet!'
+	})
+}) 
+
+router.post('/show_diff_tree', function(req, res) {
+	let full_path = req.body.path
+	let commit_id = req.body.commit_id
+	let nom_web = check(full_path, req, res)
+	let command_cd = shell.cd(nom_web)
+	let command_git_diff_tree = shell.exec('git diff-tree --no-commit-id --name-only -r '+commit_id)
+	res.send({
+		result: command_git_diff_tree,
+		missatge: 'Mostrats fitxers canviats del commit '+commit_id+' de la web '+nom_web+' fet!'
+	})
+}) 
+
+router.post('/restore', function(req, res) {
 	let full_path = req.body.path
 	let commit_id = req.body.commit_id
 	let nom_web = check(full_path, req, res)
 	let command_cd = shell.cd(nom_web)
 	let command_git_checkout = shell.exec('git checkout '+commit_id)
-	res.send('Restaurat commit '+commit_id+' de la sweb '+nom_web+' fet!')
+	res.send('Restaurat commit '+commit_id+' de la web '+nom_web+' fet!')
 })
 
 router.post('/backup', function(req, res) {
 	console.log(req.body)
-	let nom_web = req.body.path
+	let full_path = req.body.path
+	let nom_web = check(full_path, req, res)
 	let command_cd = shell.cd(nom_web)
 	let date = shell.exec('date')
 	let commit_message = 'Commit fet el '+date
 	let command_git_add_all = shell.exec('git add -A')
-	let command_git_commit_all = shell.exec('git commit -a -m '+commit_message)
+	let command_git_commit_all = shell.exec('git commit -a -m "'+commit_message+'"')
 	res.send('Backup a '+nom_web+' fet!')
+})
+
+router.post('/undo_restore', function(req, res) {
+	let full_path = req.body.path
+	let nom_web = check(full_path, req, res)
+	let command_cd = shell.cd(nom_web)
+	let command_git_checkout_master = shell.exec('git checkout master')
+	res.send('Desfet el restaurar versio de la web '+nom_web)
 })
 
 // HOME
