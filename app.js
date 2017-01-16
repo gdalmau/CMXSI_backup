@@ -3,6 +3,8 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const body_parser = require('body-parser')
+
 
 //  Configure app
 
@@ -13,7 +15,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, '/public')))
 app.use('/bower_components', express.static(path.join(__dirname, '/bower_components')))
-
+app.use(body_parser())
 //  Rutas
 
 app.use('/', require('./routes/index'))

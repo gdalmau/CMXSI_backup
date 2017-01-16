@@ -3,6 +3,7 @@
 const express = require('express')
 const shell = require('shelljs')
 const fs = require('fs')
+const bodyParser = require('body-parser')
 // shell.config.silent = true
 
 const GLOBAL_PATH = '/var/www'
@@ -100,6 +101,26 @@ router.get('/webs/:path*?', processaURL, function (req, res) {
 	  commits: res.locals.commits
     })
   }
+})
+
+router.post('/recuperar', function(req, res) {
+	let full_path = req.body.path
+	let commit_id = req.body.commit_id
+	let nom_web = check(full_path, req, res)
+	let command_cd = shell.cd(nom_web)
+	let command_git_checkout = shell.exec('git checkout '+commit_id)
+	res.send('Restaurat commit '+commit_id+' de la sweb '+nom_web+' fet!')
+})
+
+router.post('/backup', function(req, res) {
+	console.log(req.body)
+	let nom_web = req.body.path
+	let command_cd = shell.cd(nom_web)
+	let date = shell.exec('date')
+	let commit_message = 'Commit fet el '+date
+	let command_git_add_all = shell.exec('git add -A')
+	let command_git_commit_all = shell.exec('git commit -a -m '+commit_message)
+	res.send('Backup a '+nom_web+' fet!')
 })
 
 // HOME

@@ -27,14 +27,17 @@ jQuery(document).ready(function ($) {
   $('.recuperar').on('click', function (e) {
     e.preventDefault()
     let commit = e.currentTarget.id
-    let path = $('#path').text
+    let path = $('#path').text()
     console.log(path)
-    $.ajax({
+    $.post({
       url: '/recuperar',
       data: {
         commit_id: commit,
         path: path
       }
-    })
+    }).done(function(data){
+		console.log(data)
+		location.reload()
+	})
   })
 })
