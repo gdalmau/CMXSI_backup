@@ -5,6 +5,9 @@ const shell = require('shelljs')
 const fs = require('fs')
 shell.config.silent = true
 
+const dirTree = require('directory-tree')
+const tree = dirTree('./')
+
 const GLOBAL_PATH = '/var/www/'
 
 const router = express.Router()
@@ -92,20 +95,10 @@ router.get('/:path', function (req, res) {
 		return
 	}
 	
-<<<<<<< Updated upstream
 	// if(fs.lstatSync(full_path).isDirectory()){
 	console.log("### router.get parametres: "+req.params)
 	if(res.locals.isDirectory){
 		console.log("### mostrar fitxers web: "+res.locals.path)
-=======
-	console.log("REQ URL"+req.url)
-
-	let full_path = GLOBAL_PATH + path
-	console.log("fullpath " + full_path)
-	
-	
-	if(fs.lstatSync(full_path).isDirectory()){
->>>>>>> Stashed changes
 		res.render('vista_web',{
 			fitxers: res.locals.fitxers,
 			pare: res.locals.path
@@ -133,7 +126,6 @@ router.get('/:path', function (req, res) {
 
 // HOME
 router.get('/', function (req, res, next){
-	console.log("REQ URL "+req.url)
 	let list_webs = shell.exec('ls /var/www').split("\n").slice(0,-1)
 	console.log("### llistat de webs: " + list_webs)
 	res.locals.list_webs = list_webs
@@ -149,7 +141,6 @@ router.get('/', function (req, res) {
 
 
 router.get('/log', function (req, res) {
-	console.log("REQ URL "+req.url)
   res.render('formInput', {
     title: 'GIT!'
   })
