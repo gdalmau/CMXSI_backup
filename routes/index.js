@@ -3,9 +3,9 @@
 const express = require('express')
 const shell = require('shelljs')
 const fs = require('fs')
-shell.config.silent = true
+// shell.config.silent = true
 
-const GLOBAL_PATH = '/var/www/'
+const GLOBAL_PATH = '/var/www'
 
 const router = express.Router()
 
@@ -23,9 +23,12 @@ function check (file, req, res) {
     res.redirect('/no-git')
     return
   }
-  if (!fs.existsSync(file)) {
+  let check = file.replace('/webs',GLOBAL_PATH)
+  console.log('checking: '+check)
+  if (!fs.existsSync(check)) {
     res.redirect('/404')
   }
+  return check
 }
 
 router.get('/404', function (req, res) {
@@ -34,23 +37,31 @@ router.get('/404', function (req, res) {
 
 function processaURL (req, res, next) {
   // Controlem que tingui el programari correctament instalat
-  check(req.url, req, res)
-
-  let full_path = req.url
+  
+  let full_path = check(req.url, req, res)
   console.log('### fullpath param1: ' + full_path)
-
+  console.log('req.url route: '+req.url)
+  
+  let nom_web = GLOBAL_PATH+'/'+req.url.split('/')[2]
+  
+  
   if (fs.lstatSync(full_path).isDirectory()) {
     let command = shell.exec('ls ' + full_path).stdout.split('\n').slice(0, -1)
     console.log('### command: ' + command)
     res.locals.fitxers = command
     res.locals.isDirectory = true
+	res.locals.route = req.url
   } else {
-    let command = shell.exec('git status')
-    let path2 = shell.exec('git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --follow ' + path)
-
-    res.locals.pwd = path2.split('\n').map(dividirCommits)
-    res.locals.path = req.url
-    res.locals.historial_fitxer = command
+    // let command = shell.exec('git status')
+    // let command = shell.exec('git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --follow ' + full_path)
+	// let command = shell.exec('git log' + full_path)
+	let command_cd = shell.cd(nom_web)
+	let command = 'git log --pretty=format:"%h%x09%an%x09%ad%x09%s" --follow ' + full_path
+	let historial = shell.exec(command)
+	console.log("Command historial: "+command_cd + '\n'+command)
+	console.log("Command historial total: "+historial)
+    res.locals.commits = historial.split('\n').map(dividirCommits)
+    res.locals.route = req.url
     res.locals.isDirectory = false
   }
   next()
@@ -59,18 +70,18 @@ function processaURL (req, res, next) {
 //  ROUTES
 router.get('/webs/:path*?', processaURL, function (req, res) {
   if (res.locals.isDirectory) {
-    console.log('### mostrar fitxers web: ' + res.locals.path)
+    console.log('### mostrar fitxers web: ' + res.locals.route)
+	
     res.render('vista_web', {
       fitxers: res.locals.fitxers,
-      pare: res.locals.path
+      pare: res.locals.route
     })
   } else {
     console.log('### mostrar fitxer: ' + res.locals.path)
     res.render('vista_fitxer', {
-      historial_fitxer: res.locals.historial_fitxer,
       title: 'GIT!',
-      path: res.locals.pwd,
-      file: res.locals.path
+      file: res.locals.route,
+	  commits: res.locals.commits
     })
   }
   // res.render('vista_fitxer', {
@@ -85,7 +96,7 @@ router.get('/webs/:path*?', processaURL, function (req, res) {
 
 // HOME
 router.get('/', function (req, res, next) {
-  let list_webs = shell.exec('ls /Users/OriolTestart/Documents/CMX/CMXSI_backup').split('\n').slice(0, -1)
+  let list_webs = shell.exec('ls '+GLOBAL_PATH).split('\n').slice(0, -1)
   console.log('### llistat de webs: ' + list_webs)
   res.locals.list_webs = list_webs
   next()
