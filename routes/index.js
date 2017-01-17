@@ -3,7 +3,6 @@
 const express = require('express')
 const shell = require('shelljs')
 const fs = require('fs')
-const bodyParser = require('body-parser')
 // shell.config.silent = true
 
 const GLOBAL_PATH = '/var/www'
