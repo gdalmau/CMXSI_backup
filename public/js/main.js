@@ -33,7 +33,7 @@ function restore_web(e) {
     let path = $('#path').text()
     swal({
       title: "N'estas segur?",
-      text: 'You will not be able to recover this imaginary file!',
+      text: 'Vigila restaurant webs, és possible perdre\'n l\'estat actual',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
@@ -136,7 +136,6 @@ function show_web (e) {
     let panel = $('#panel_' + commit)
     let path = $('#path').text()
 	let close_btn = $('#close_' + commit)
-	
 	$.post({
 		url: '/show_web',
 		data: {
@@ -253,7 +252,7 @@ function restore_file(e) {
 	let file = full_path_splitted[full_path_splitted.length-1]
     swal({
       title: "N'estas segur?",
-      text: 'You will not be able to recover this imaginary file!',
+      text: 'Vigila restaurant fitxers, és possible perdre\'n l\'estat actual',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#DD6B55',
@@ -298,7 +297,7 @@ function diff_file(e) {
 			file_name: file
 		}
 	}).done(function (data) {
-		console.log(data.missatge)
+		console.log(data.message)
 		if (!data.result)
 			panel.html('No hi ha cap canvi visible')
 		else {
