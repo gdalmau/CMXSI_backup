@@ -2,7 +2,7 @@
 
 const shell = require('shelljs')
 const fs = require('fs')
-const GLOBAL_PATH = '/Users/OriolTestart/Projectes/CMXSI_backup'
+const GLOBAL_PATH = '/var/www'
 
 
 function fix_path(path){
