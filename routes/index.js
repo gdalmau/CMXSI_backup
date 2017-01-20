@@ -8,24 +8,6 @@ shell.config.silent = true
 
 const router = express.Router()
 
-/*function returnAjax(res, message) {
-    if (res.locals.result && res.locals.message)
-      res.send({
-          result: res.locals.result,
-          missatge: res.locals.message
-      })
-    else if (res.locals.message)
-      res.send({
-        missatge: res.locals.message
-      })
-    else if (res.locals.result)
-      res.send({
-        result: res.locals.result
-      })
-    else
-      res.send("")
-}*/
-
 router.get('/404', function (req, res) {
   res.render('404')
 })

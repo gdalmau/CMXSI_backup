@@ -16,7 +16,7 @@
     "standard": "^8.6.0"
   },
   "scripts": {
-    "postinstall": "node setup",
+    "postinstall": "bower install && node setup",
     "start": "nodemon app",
     "uninstall": "",
     "test": "echo \"Error: no test specified\" && exit 1"

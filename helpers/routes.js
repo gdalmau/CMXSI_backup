@@ -3,8 +3,8 @@
 const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
+const GLOBAL_PATH = require('../app').GLOBAL_PATH
 
-const GLOBAL_PATH = require('fs').readFileSync('backup.conf').toString()
 
 function fix_path(path){
 	if (path[path.length-1] == '/') return path.slice(0,-1)
