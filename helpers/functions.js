@@ -53,6 +53,7 @@ function setup(dir) {
         })
         console.log(colors.green('==> Everything was setup correctly!'))
         config.constants.GLOBAL_PATH = dir
+        config.constants.ROOT_PATH = __dirname.split('/').slice(0, -1).join('/')+"/backups"
         fs.writeFileSync('./config.json', JSON.stringify(config, null, 2))
         return initializeGitRepos(dir, noGitArray)
     } else return false
@@ -74,7 +75,10 @@ function crontask (dir) {
 
         }
     })
-    shell.exec('mysqldump --single-transaction --routines --events --triggers --add-drop-table --extended-insert -u ' + config.mysql.user + ' -h ' + config.mysql.host + ' -p' + config.mysql.password + ' ' + config.mysql.database + ' | gzip -9 > ' + config.mysql.dest + '/$(date +"%H:%M_%d-%m-%Y").sql.gz')
+    if (!shell.exec('mysqldump --single-transaction --routines --events --triggers --add-drop-table --extended-insert -u ' + config.mysql.user + ' -h ' + config.mysql.host + ' -p' + config.mysql.password + ' ' + config.mysql.database + ' | gzip -9 > ' + config.constants.ROOT_PATH + '/backups/$(date +"%H:%M_%d-%m-%Y").sql.gz'))
+        console.log(colors.green("Database Backup Completed!"))
+    else 
+        console.log(colors.red("No MySQL installed"))
 
 }
 
