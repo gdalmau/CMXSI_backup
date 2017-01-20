@@ -1,0 +1,11 @@
+{
+  "constants": {
+    "GLOBAL_PATH": "/Users/OriolTestart/Projectes/Exemple"
+  },
+  "mysql": {
+    "host": "localhost",
+    "user": "root",
+    "password": "root-mysql",
+    "database": "prova"
+  }
+}

@@ -4,6 +4,8 @@ const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
 const colors = require('colors')
+const config = require('../config')
+const mysqlDump = require('mysqldump')
 
 /** 
  * Li dones un directori i et diu si hi ha un repositori de GIT
@@ -50,9 +52,8 @@ function setup(dir) {
                 noGitArray.push(web)
         })
         console.log(colors.green('==> Everything was setup correctly!'))
-        fs.writeFile(path.join(__dirname, 'backup.conf'), answer, function(err) {
-            if(err) return console.log(colors.yellow(err));
-        })
+        config.constants.GLOBAL_PATH = dir
+        fs.writeFileSync('./config.json', JSON.stringify(config, null, 2))
         return initializeGitRepos(dir, noGitArray)
     } else return false
 }
@@ -67,11 +68,19 @@ function crontask (dir) {
             if(detectGitRepositories(directory)) {
                 shell.cd(directory)
                 shell.exec('git add -A')
-                shell.exec('git commit -am "Backup done at '+ Date.now())
+                shell.exec('git commit -am "Backup done at '+ new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') + '"')
             }
             console.log(colors.green("Backup done for %s"), web)
+
         }
     })
+
+    config.mysql.dest = "./mysql/bckup_" + new Date().toISOString() + ".sql"
+
+    mysqlDump(config.mysql, (err) => {
+        console.log("Mysqldump?")
+    })
+
 }
 
 module.exports = {

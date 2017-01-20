@@ -1,10 +1,8 @@
 'use strict'
 
 const express = require('express')
-const shell = require('shelljs')
 const fs = require('fs')
 const helper = require('../helpers/routes')
-shell.config.silent = true
 
 const router = express.Router()
 

@@ -1,7 +1,8 @@
 'use strict'
 
 const helper = require('./helpers/functions')
-const rl = require('rl').createInterface({
+const colors = require('colors')
+const rl = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 })

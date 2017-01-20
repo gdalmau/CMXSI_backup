@@ -8,16 +8,11 @@ const shell = require('shelljs')
 const cron = require('node-cron')
 const colors = require('colors')
 const helper = require('./helpers/functions')
-const GLOBAL_PATH = require('fs').readFileSync('backup.conf').toString() 
-
-
-module.exports = { 
-  GLOBAL_PATH: GLOBAL_PATH
-}
+const config = require('./config')
 
 cron.schedule('* * * * *', function() {
   console.log(colors.red("Every minute!!"))
-  helper.crontask(GLOBAL_PATH)
+  helper.crontask(config.constants.GLOBAL_PATH)
 })
 
 //  Configure app

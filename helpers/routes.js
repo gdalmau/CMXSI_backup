@@ -3,7 +3,7 @@
 const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
-const GLOBAL_PATH = require('../app').GLOBAL_PATH
+const GLOBAL_PATH = require('../config').constants.GLOBAL_PATH
 
 
 function fix_path(path){
