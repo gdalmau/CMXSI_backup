@@ -1,3 +1,6 @@
-#Directoris exclosos
+# Directoris exclosos
 node_modules/
 bower_components/
+
+# Config files
+backup.conf

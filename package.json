@@ -1,10 +1,11 @@
 {
-  "name": "expressmvc",
+  "name": "cmxsi_backup",
   "version": "1.0.0",
   "description": "Simple express APP",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "colors": "^1.1.2",
     "express": "^4.14.0",
     "hbs": "^4.0.1",
     "node-cron": "^1.1.2",
@@ -15,8 +16,9 @@
     "standard": "^8.6.0"
   },
   "scripts": {
-    "preinstall": "echo HOLA!",
+    "postinstall": "node postinstall",
     "start": "nodemon app",
+    "uninstall": "",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Oriol Testart <orioltestart@gmail.com> (https://orioltestart.com)",

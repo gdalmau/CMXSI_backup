@@ -6,8 +6,6 @@ const fs = require('fs')
 const helper = require('../helpers/routes')
 shell.config.silent = true
 
-const GLOBAL_PATH = '/Users/OriolTestart/Projectes/CMXSI_backup'
-
 const router = express.Router()
 
 function returnAjax(result, message) {

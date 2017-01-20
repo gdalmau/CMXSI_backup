@@ -2,8 +2,9 @@
 
 const shell = require('shelljs')
 const fs = require('fs')
-const GLOBAL_PATH = '/var/www'
+const path = require('path')
 
+const GLOBAL_PATH = require('fs').readFileSync('backup.conf').toString()
 
 function fix_path(path){
 	if (path[path.length-1] == '/') return path.slice(0,-1)
@@ -225,7 +226,7 @@ function showFile(req, res, next) {
   let commitId = req.body.commit_id
   let nomWeb = check(fullPath, req, res)
   shell.cd(nomWeb)
-  console.log('comanda a fer: '+'git show '+commitId+' ' + fileName)
+  //console.log('comanda a fer: '+'git show '+commitId+' ' + fileName)
   res.locals.result = shell.exec('git show ' + commitId + ' ' + fileName)
   res.locals.message = 'Restaurat commit ' + commitId + ' del fitxer ' + fileName + ' la web ' + nomWeb + ' fet!'
   next()

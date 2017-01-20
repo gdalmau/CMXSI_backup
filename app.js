@@ -4,9 +4,7 @@ const express = require('express')
 const path = require('path')
 const app = express()
 const body_parser = require('body-parser')
-const cron = require('node-cron')
 const shell = require('shelljs')
-
 
 //  Configure app
 
@@ -28,4 +26,3 @@ const port = process.env.PORT || 3000
 app.listen(port, function () {
   console.log('App listening on port ' + port)
 })
-
