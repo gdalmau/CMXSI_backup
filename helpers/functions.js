@@ -53,7 +53,8 @@ function setup(dir) {
         })
         console.log(colors.green('==> Everything was setup correctly!'))
         config.constants.GLOBAL_PATH = dir
-        config.constants.ROOT_PATH = __dirname.split('/').slice(0, -1).join('/')+"/backups"
+        config.constants.ROOT_PATH = __dirname.split('/').slice(0, -1).join('/')
+        console.log(shell.mkdir(config.constants.ROOT_PATH+"/backups"))
         fs.writeFileSync('./config.json', JSON.stringify(config, null, 2))
         return initializeGitRepos(dir, noGitArray)
     } else return false
