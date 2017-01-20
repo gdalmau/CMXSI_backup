@@ -5,7 +5,6 @@ const fs = require('fs')
 const path = require('path')
 const colors = require('colors')
 const config = require('../config')
-var mysqldump = new mysql('mydatabase', config.mysql)
 shell.config.silent = true
 
 /** 
