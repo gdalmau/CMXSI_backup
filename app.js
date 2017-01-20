@@ -21,7 +21,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, '/public')))
 app.use('/bower_components', express.static(path.join(__dirname, '/bower_components')))
-app.use(body_parser.urlencoded({ extended: true }))
+app.use(body_parser.urlencoded({ extended: false }))
 app.use(body_parser.json())
 //  Rutas
 

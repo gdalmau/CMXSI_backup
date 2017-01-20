@@ -8,7 +8,7 @@ shell.config.silent = true
 
 const router = express.Router()
 
-function returnAjax(result, message) {
+/*function returnAjax(res, message) {
     if (res.locals.result && res.locals.message)
       res.send({
           result: res.locals.result,
@@ -24,7 +24,7 @@ function returnAjax(result, message) {
       })
     else
       res.send("")
-}
+}*/
 
 router.get('/404', function (req, res) {
   res.render('404')
@@ -52,7 +52,10 @@ router.get('/webs/:path*?', helper.processaURL, function (req, res) {
 })
 
 router.post('/diff_web', helper.diffWeb, function(req, res) {
-  returnAjax(res.locals.result, res.locals.message)
+  res.send({
+    result: res.locals.result,
+    missatge: res.locals.message
+  })
 }) 
 
 router.post('/show_web', helper.showWeb, function(req, res) {
