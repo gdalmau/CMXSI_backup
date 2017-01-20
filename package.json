@@ -1,7 +1,7 @@
 {
   "name": "cmxsi_backup",
   "version": "1.0.0",
-  "description": "Simple express APP",
+  "description": "Make backups of your directories using Git with Web Interfacs",
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -25,6 +25,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/orioltestart/Web.git"
+    "url": "https://github.com/orioltestart/CMXSI_backup.git"
   }
 }

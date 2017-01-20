@@ -50,6 +50,7 @@ function setup(dir) {
     if (fs.existsSync(dir)){
         let llistaWebs = fs.readdirSync(dir)
 
+        /** For each web, detect  */
         llistaWebs.forEach(web => {
             if(!detectGitRepositories(path.join(dir, web)))
                 noGitArray.push(web)
