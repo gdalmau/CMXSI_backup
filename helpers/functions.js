@@ -61,8 +61,8 @@ function crontask (dir) {
     let llistaWebs = fs.readdirSync(dir)
     let directory
 
-    if (fs.existsSync(dir)) {
-        llistaWebs.forEach(web => {
+    llistaWebs.forEach(web => {
+        if (fs.existsSync(dir) && fs.statSync(path.join(dir, web)).isDirectory()){
             directory = path.join(dir, web)
             if(detectGitRepositories(directory)) {
                 shell.cd(directory)
@@ -70,8 +70,8 @@ function crontask (dir) {
                 shell.exec('git commit -am "Backup done at '+ Date.now())
             }
             console.log(colors.green("Backup done for %s"), web)
-        })
-    }
+        }
+    })
 }
 
 module.exports = {
