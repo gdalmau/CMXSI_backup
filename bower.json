@@ -1,6 +1,6 @@
 {
-  "name": "expressmvc",
-  "description": "Simple express APP",
+  "name": "cmxsi_backup",
+  "description": "Make backups of your directories using Git with Web Interfacs",
   "main": "app.js",
   "authors": [
     "Oriol Testart <orioltestart@gmail.com> (https://orioltestart.com)"

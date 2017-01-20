@@ -74,8 +74,5 @@ rl.question(colors.blue("==> Introduce the directory where you have the webs (de
         console.log(colors.green("==> Config file was created successfully!"))
     }
     rl.close()
-
-    if (!fs.existsSync(path.resolve(__dirname, 'backup.conf'))) 
-        console.log(colors.red("==> Something went wrong! - Install me Again!").underline)
     return true
 })
