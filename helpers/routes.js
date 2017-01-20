@@ -4,6 +4,7 @@ const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
 const GLOBAL_PATH = require('../config').constants.GLOBAL_PATH
+shell.config.silent = true
 
 
 function fix_path(path){

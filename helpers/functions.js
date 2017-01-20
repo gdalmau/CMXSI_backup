@@ -5,7 +5,9 @@ const fs = require('fs')
 const path = require('path')
 const colors = require('colors')
 const config = require('../config')
-const mysqlDump = require('mysqldump')
+const mysql = require('mysqldump-stream')
+var mysqldump = new mysql('mydatabase', config.mysql)
+shell.config.silent = true
 
 /** 
  * Li dones un directori i et diu si hi ha un repositori de GIT
@@ -74,12 +76,7 @@ function crontask (dir) {
 
         }
     })
-
-    config.mysql.dest = "./mysql/bckup_" + new Date().toISOString() + ".sql"
-
-    mysqlDump(config.mysql, (err) => {
-        console.log("Mysqldump?")
-    })
+    shell.exec('mysqldump --single-transaction --routines --events --triggers --add-drop-table --extended-insert -u ' + config.mysql.user + ' -h ' + config.mysql.host + ' -p' + config.mysql.password + ' ' + config.mysql.database + ' | gzip -9 > ' + config.mysql.dest + '/$(date +"%H:%M_%d-%m-%Y").sql.gz')
 
 }
 
