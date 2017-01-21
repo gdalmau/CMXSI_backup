@@ -4,13 +4,12 @@ const express = require('express')
 const path = require('path')
 const app = express()
 const body_parser = require('body-parser')
-const shell = require('shelljs')
 const cron = require('node-cron')
 const colors = require('colors')
 const helper = require('./helpers/functions')
 const config = require('./config')
 
-cron.schedule('* * * * *', function() {
+cron.schedule('0 0 * * *', function() {
   console.log(colors.red("Every minute!!"))
   helper.crontask(config.constants.GLOBAL_PATH)
 })
