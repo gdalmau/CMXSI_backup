@@ -76,12 +76,14 @@ function crontask (dir) {
 
         }
     })
-    console.log('mysqldump --single-transaction --routines --events --triggers --add-drop-table --extended-insert -u ' + config.mysql.user + ' -h ' + config.mysql.host + ' -p' + config.mysql.password + ' ' + config.mysql.database + ' | gzip -9 > ' + config.constants.ROOT_PATH + '/backups/$(date +"%H:%M_%d-%m-%Y").sql.gz')
-    if (!shell.exec('mysqldump --single-transaction --routines --events --triggers --add-drop-table --extended-insert -u ' + config.mysql.user + ' -h ' + config.mysql.host + ' -p' + config.mysql.password + ' ' + config.mysql.database + ' | gzip -9 > ' + config.constants.ROOT_PATH + '/backups/$(date +"%H:%M_%d-%m-%Y").sql.gz'))
-        console.log(colors.green("Database Backup Completed!"))
-    else 
+    if (!shell.which('mysql')) 
         console.log(colors.red("No MySQL installed"))
-
+    else if (!shell.which('mysqldump')) 
+        console.log(colors.red("No MySQLdump installed"))
+    else {
+        shell.exec('mysqldump --single-transaction --routines --events --triggers --add-drop-table --extended-insert -u ' + config.mysql.user + ' -h ' + config.mysql.host + ' -p' + config.mysql.password + ' ' + config.mysql.database + ' | gzip -9 > ' + config.constants.ROOT_PATH + '/backups/$(date +"%H:%M_%d-%m-%Y").sql.gz')
+        console.log(colors.green("Database Backup Completed!"))
+    }
 }
 
 module.exports = {
