@@ -4,7 +4,7 @@ const shell = require('shelljs')
 const fs = require('fs')
 const path = require('path')
 const colors = require('colors')
-const config = require('../config')
+const config = require('../config.json')
 shell.config.silent = true
 
 /** 
@@ -56,6 +56,7 @@ function setup(dir) {
         config.constants.ROOT_PATH = __dirname.split('/').slice(0, -1).join('/')
         shell.mkdir(config.constants.ROOT_PATH+"/backups")
         fs.writeFileSync('./config.json', JSON.stringify(config, null, 2))
+        fs.chmodSync('./config.json', '0700')
         return initializeGitRepos(dir, noGitArray)
     } else return false
 }

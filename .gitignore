@@ -4,6 +4,6 @@ bower_components/
 backups/
 
 # Config files
-backup.conf
+config.json
 
 shelljs_*

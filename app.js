@@ -7,11 +7,11 @@ const body_parser = require('body-parser')
 const cron = require('node-cron')
 const colors = require('colors')
 const helper = require('./helpers/functions')
-const config = require('./config')
+const config = require('./config').constants
 
 cron.schedule('0 0 * * *', function() {
   console.log(colors.red("Every minute!!"))
-  helper.crontask(config.constants.GLOBAL_PATH)
+  helper.crontask(config.GLOBAL_PATH)
 })
 
 //  Configure app
@@ -31,7 +31,7 @@ app.use('/', require('./routes/index'))
 
 //  LISTEN
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || config.port
 app.listen(port, function () {
   console.log('App listening on port ' + port)
 })
