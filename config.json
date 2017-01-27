@@ -1,13 +1,13 @@
 {
   "constants": {
-    "GLOBAL_PATH": "/Users/OriolTestart/Projectes/CMXSI_backup",
-    "ROOT_PATH": "/Users/OriolTestart/Projectes/CMXSI_backup",
+    "GLOBAL_PATH": "",
+    "ROOT_PATH": "",
     "port": 3000
   },
   "mysql": {
-    "host": "localhost",
-    "user": "root",
-    "password": "root-mysql",
-    "database": "prova"
+    "host": "",
+    "user": "",
+    "password": "",
+    "database": ""
   }
 }
