@@ -15,6 +15,9 @@ les dades de MySQL per realitzar les còpies incrementals.
 
 Aquestes còpies es guardaran a la carpeta backups de la root del projecte.
 
+GLOBAL_PATH > Directori del el qual es crearàn els repositoris i les còpies
+ROOT_PATH > Directori en el qual es troba l'arrel de l'aplicació (app.js)
+
 # Possibles Millores
 
 Podriem gestionar millor les importacions de javascript dins del projecte utilitzant "module bundlers" com webpack
