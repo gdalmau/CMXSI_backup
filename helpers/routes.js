@@ -152,7 +152,7 @@ function restoreWeb(req, res, next) {
   let commitId = req.body.commit_id
   let nomWeb = check(fullPath, req, res)
   console.log(shell.cd(nomWeb))
-  console.log(shell.exec('git checkout ' + commitId))
+  console.log(shell.exec('sudo git checkout ' + commitId))
   res.locals.message = 'Restaurat commit ' + commitId + ' de la web ' + nomWeb + ' fet!'
   next()
 }
@@ -180,7 +180,7 @@ function unRestoreWeb(req, res, next) {
   let fullPath = req.body.path
   let nomWeb = check(fullPath, req, res)
   shell.cd(nomWeb)
-  shell.exec('git checkout master')
+  shell.exec('sudo git checkout master')
   res.locals.message = 'Desfet el restaurar versio de la web ' + nomWeb
   next()
 }
@@ -212,7 +212,7 @@ function restoreFile(req, res, next) {
   let commitId = req.body.commit_id
   let nomWeb = check(fullPath, req, res)
   console.log(shell.cd(nomWeb))
-  console.log(shell.exec('git checkout ' + commitId + ' ' + fileName))
+  console.log(shell.exec('sudo git checkout ' + commitId + ' ' + fileName))
   res.locals.message = 'Restaurat commit ' + commitId + ' del fitxer ' + fileName + ' la web ' + nomWeb + ' fet!'
   console.log("DONE!")
   next()
