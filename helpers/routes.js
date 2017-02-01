@@ -151,8 +151,8 @@ function restoreWeb(req, res, next) {
   let fullPath = req.body.path
   let commitId = req.body.commit_id
   let nomWeb = check(fullPath, req, res)
-  shell.cd(nomWeb)
-  shell.exec('git checkout ' + commitId)
+  console.log(shell.cd(nomWeb))
+  console.log(shell.exec('git checkout ' + commitId))
   res.locals.message = 'Restaurat commit ' + commitId + ' de la web ' + nomWeb + ' fet!'
   next()
 }
