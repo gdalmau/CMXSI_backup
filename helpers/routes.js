@@ -213,7 +213,9 @@ function restoreFile(req, res, next) {
   let commitId = req.body.commit_id
   let nomWeb = check(fullPath, req, res)
   console.log(shell.cd(nomWeb))
-  console.log(shell.exec('sudo git checkout ' + commitId + ' ' + fileName))
+  let commanda = 'sudo git checkout ' + commitId + ' ' + fileName
+  console.log(comanda)
+  shell.exec(comanda)
   res.locals.message = 'Restaurat commit ' + commitId + ' del fitxer ' + fileName + ' la web ' + nomWeb + ' fet!'
   next()
 }
