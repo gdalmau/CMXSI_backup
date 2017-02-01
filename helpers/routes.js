@@ -208,6 +208,7 @@ function backupFile(req, res, next) {
  */
 function restoreFile(req, res, next) {
   let fullPath =  GLOBAL_PATH + '/' + req.body.nom_web
+  console.log(fullPath) 
   let fileName = req.body.file_name
   let commitId = req.body.commit_id
   let nomWeb = check(fullPath, req, res)
@@ -223,7 +224,6 @@ function restoreFile(req, res, next) {
  */
 function showFile(req, res, next) {
   let fullPath =  GLOBAL_PATH + '/' + req.body.nom_web
-  console.log(fullPath)
   let fileName = req.body.file_name
   let commitId = req.body.commit_id
   let nomWeb = check(fullPath, req, res)
