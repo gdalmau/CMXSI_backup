@@ -1,7 +1,7 @@
 {
   "constants": {
-    "GLOBAL_PATH": "",
-    "ROOT_PATH": "",
+    "GLOBAL_PATH": "/Users/OriolTestart/Projectes/CMXSI_backup",
+    "ROOT_PATH": "/Users/OriolTestart/Projectes/CMXSI_backup",
     "port": 3000
   },
   "mysql": {

@@ -7,7 +7,7 @@ const body_parser = require('body-parser')
 const cron = require('node-cron')
 const colors = require('colors')
 const helper = require('./helpers/functions')
-const config = require('./config').constants
+const config = require('./config.json').constants
 
 cron.schedule('0 0 * * *', function() {
   console.log(colors.red("Every minute!!"))
