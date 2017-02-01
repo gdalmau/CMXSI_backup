@@ -209,12 +209,11 @@ function backupFile(req, res, next) {
 function restoreFile(req, res, next) {
   let fullPath =  GLOBAL_PATH + '/' + req.body.nom_web
   let fileName = req.body.file_name
-  console.log(fileName)
   let commitId = req.body.commit_id
   let nomWeb = check(fullPath, req, res)
   shell.cd(nomWeb)
-  console.log(shell.exec('pwd'))
-  shell.exec('sudo git checkout ' + commitId + ' ' + fileName)
+  shell.exec('pwd')
+  console.log(shell.exec('git checkout ' + commitId + ' ' + fileName))
   res.locals.message = 'Restaurat commit ' + commitId + ' del fitxer ' + fileName + ' la web ' + nomWeb + ' fet!'
   next()
 }
